@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Opulent Farms Pool Party RSVP</title>
+  <meta name="description" content="Official RSVP for the Opulent Farms Pool Party in Gurugram. Select your dates, activities, and confirm your attendance." />
+  
+  <!-- CSS Styles -->
+  <link rel="stylesheet" href="./css/main.css" />
+  <link rel="stylesheet" href="./css/responsive.css" />
+</head>
+<body>
+
+  <!-- Top Application Header -->
+  <header class="app-header">
+    <div class="brand-badge" id="header-badge">
+      🎉 Friends Edition
+    </div>
+
+    <!-- Variant Switcher Toggle -->
+    <div class="variant-switch">
+      <button class="variant-btn active" id="btn-variant-friends">Friends</button>
+      <button class="variant-btn" id="btn-variant-office">Office</button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    
+    <!-- Hero Section (Dynamically rendered via app.js) -->
+    <section id="hero-section" style="width:100%; display:flex; justify-content:center;">
+      <!-- Hero card injects here -->
+    </section>
+
+    <!-- Wizard Question Section (Hidden initially) -->
+    <section id="wizard-section" class="wizard-container" style="display: none;">
+      
+      <!-- Progress Bar -->
+      <div class="progress-header">
+        <div class="progress-info">
+          <span id="progress-step-text">Question 1 of 9</span>
+          <span id="progress-percent">11%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- Question Card Container -->
+      <div class="question-card" id="question-card">
+        <!-- Question content injects here -->
+      </div>
+
+    </section>
+
+    <!-- Success Confirmation Section (Hidden initially) -->
+    <section id="success-section" style="width:100%; display: none;">
+      <!-- Success card injects here -->
+    </section>
+
+  </main>
+
+  <!-- JavaScript Scripts -->
+  <script src="./js/config.js"></script>
+  <script src="./js/submit.js"></script>
+  <script src="./js/app.js"></script>
+</body>
+</html>
