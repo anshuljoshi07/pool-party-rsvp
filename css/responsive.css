@@ -47,6 +47,11 @@
     font-size: 14px;
   }
 
+  .memories-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
   .btn-primary, .btn-secondary {
     padding: 14px 18px;
     font-size: 16px;

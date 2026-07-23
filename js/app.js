@@ -71,6 +71,15 @@ class RSVPApp {
   renderHero() {
     const heroData = CONFIG.hero[this.variant];
     
+    this.heroPhotos = [
+      { src: "./assets/opulent_farms.png", caption: "Opulent Farms, Gurugram 🏊", tag: "Venue" },
+      { src: "./assets/photo_wolfpack.png", caption: "The Wolfpack Squad! 🕺🎉", tag: "Party Vibes" },
+      { src: "./assets/photo_unicorn.png", caption: "The Morning After... 🦄", tag: "Legendary" },
+      { src: "./assets/photo_group.png", caption: "Good Times & Great Friends ✨", tag: "Chill Session" },
+      { src: "./assets/photo_aftermath.png", caption: "Villa Lounge Aftermath 🌅", tag: "The Hangover" }
+    ];
+    this.activePhotoIdx = 0;
+    
     this.heroSection.innerHTML = `
       <div class="hero-card">
         <div class="brand-badge">${heroData.badge}</div>
@@ -78,12 +87,22 @@ class RSVPApp {
         <h1 class="hero-title">${heroData.title}</h1>
 
         <div class="polaroid-wrapper">
-          <div class="polaroid-card">
+          <div class="polaroid-card" id="hero-polaroid">
             <div class="polaroid-tape"></div>
+            <div class="polaroid-tag-badge" id="polaroid-tag">Venue</div>
             <div class="polaroid-img-box">
-              <img src="./assets/opulent_farms.png" alt="Opulent Farms Pool" />
+              <img src="${this.heroPhotos[0].src}" id="hero-polaroid-img" alt="Party Gallery" />
             </div>
-            <div class="polaroid-caption">Opulent Farms, Gurugram 🏊</div>
+            <div class="polaroid-caption" id="hero-polaroid-caption">${this.heroPhotos[0].caption}</div>
+
+            <!-- Polaroid Navigation Controls -->
+            <div class="polaroid-controls">
+              <button class="polaroid-arrow" id="polaroid-prev" title="Previous Photo">❮</button>
+              <div class="polaroid-dots" id="polaroid-dots">
+                ${this.heroPhotos.map((_, i) => `<span class="dot ${i===0?'active':''}" data-idx="${i}"></span>`).join('')}
+              </div>
+              <button class="polaroid-arrow" id="polaroid-next" title="Next Photo">❯</button>
+            </div>
           </div>
         </div>
 
@@ -102,7 +121,57 @@ class RSVPApp {
       </div>
     `;
 
+    // Bind Polaroid Carousel Controls
+    const polaroidCard = document.getElementById("hero-polaroid");
+    const polaroidImg = document.getElementById("hero-polaroid-img");
+    const polaroidCaption = document.getElementById("hero-polaroid-caption");
+    const polaroidTag = document.getElementById("polaroid-tag");
+    const dotsContainer = document.getElementById("polaroid-dots");
+
+    const updatePhoto = (idx) => {
+      this.activePhotoIdx = (idx + this.heroPhotos.length) % this.heroPhotos.length;
+      const photo = this.heroPhotos[this.activePhotoIdx];
+
+      polaroidCard.classList.add("photo-swap");
+      setTimeout(() => {
+        polaroidImg.src = photo.src;
+        polaroidCaption.innerText = photo.caption;
+        polaroidTag.innerText = photo.tag;
+        polaroidCard.classList.remove("photo-swap");
+      }, 150);
+
+      dotsContainer.querySelectorAll(".dot").forEach((d, i) => {
+        d.classList.toggle("active", i === this.activePhotoIdx);
+      });
+    };
+
+    document.getElementById("polaroid-prev").addEventListener("click", (e) => {
+      e.stopPropagation();
+      updatePhoto(this.activePhotoIdx - 1);
+    });
+
+    document.getElementById("polaroid-next").addEventListener("click", (e) => {
+      e.stopPropagation();
+      updatePhoto(this.activePhotoIdx + 1);
+    });
+
+    dotsContainer.querySelectorAll(".dot").forEach(dot => {
+      dot.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const idx = parseInt(dot.getAttribute("data-idx"));
+        updatePhoto(idx);
+      });
+    });
+
+    // Auto rotate photos every 4 seconds
+    this.photoInterval = setInterval(() => {
+      if (this.currentStep === -1 && document.getElementById("hero-polaroid")) {
+        updatePhoto(this.activePhotoIdx + 1);
+      }
+    }, 4000);
+
     document.getElementById("btn-start-rsvp").addEventListener("click", () => {
+      if (this.photoInterval) clearInterval(this.photoInterval);
       this.startWizard();
     });
   }
@@ -386,31 +455,47 @@ class RSVPApp {
       <div class="success-card">
         <div class="success-icon">🎉</div>
         <h2 style="font-family:var(--font-heading); font-size:28px; color:var(--primary-cyan);">RSVP Submitted!</h2>
-        <p style="color:var(--text-muted); font-size:15px; max-width:400px; line-height:1.6;">
+        <p style="color:var(--text-muted); font-size:15px; max-width:420px; line-height:1.6;">
           Thanks for filling this in! If we hit the numbers needed to book Opulent Farms, I'll update everyone on WhatsApp soon.
         </p>
 
-        <!-- Hangover Movie Style End Credit Memories Polaroid Gallery -->
-        <div style="width:100%; display:flex; flex-direction:column; align-items:center; gap:20px; margin: 15px 0;">
-          <h3 style="font-family:var(--font-handwritten); font-size:28px; color:var(--accent-amber); transform:rotate(-1deg);">
-            📸 Party Memories Loading...
+        <!-- Hangover Movie Style End Credit Memories Polaroid Gallery Grid -->
+        <div class="memories-container">
+          <h3 class="memories-title">
+            📸 Party Memories Incoming...
           </h3>
 
-          <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px; width:100%;">
-            <div class="polaroid-card" style="max-width:260px; transform:rotate(-3deg);">
+          <div class="memories-grid">
+            <div class="polaroid-card memory-polaroid" style="transform:rotate(-3deg);">
               <div class="polaroid-tape"></div>
-              <div class="polaroid-img-box" style="aspect-ratio:1/1;">
-                <img src="./assets/hangover_1.png" alt="Wolfpack Pool Party" />
+              <div class="polaroid-img-box">
+                <img src="./assets/photo_unicorn.png" alt="Unicorn Hangover" />
               </div>
-              <div class="polaroid-caption" style="font-size:20px;">Summer Vibes ☀️</div>
+              <div class="polaroid-caption">Party Survivor 🦄</div>
             </div>
 
-            <div class="polaroid-card" style="max-width:260px; transform:rotate(3deg);">
+            <div class="polaroid-card memory-polaroid" style="transform:rotate(2deg);">
               <div class="polaroid-tape"></div>
-              <div class="polaroid-img-box" style="aspect-ratio:1/1;">
-                <img src="./assets/hangover_2.png" alt="Karaoke Night" />
+              <div class="polaroid-img-box">
+                <img src="./assets/photo_wolfpack.png" alt="Wolfpack Squad" />
               </div>
-              <div class="polaroid-caption" style="font-size:20px;">Legendary Night! 🎤</div>
+              <div class="polaroid-caption">Wolfpack Squad 🕺</div>
+            </div>
+
+            <div class="polaroid-card memory-polaroid" style="transform:rotate(-2deg);">
+              <div class="polaroid-tape"></div>
+              <div class="polaroid-img-box">
+                <img src="./assets/photo_group.png" alt="Chill Session" />
+              </div>
+              <div class="polaroid-caption">Summer Vibes ☀️</div>
+            </div>
+
+            <div class="polaroid-card memory-polaroid" style="transform:rotate(3deg);">
+              <div class="polaroid-tape"></div>
+              <div class="polaroid-img-box">
+                <img src="./assets/photo_aftermath.png" alt="Living Room Aftermath" />
+              </div>
+              <div class="polaroid-caption">The Aftermath 🌅</div>
             </div>
           </div>
         </div>
