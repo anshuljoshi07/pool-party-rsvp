@@ -73,10 +73,10 @@ class RSVPApp {
     
     this.heroPhotos = [
       { src: "./assets/opulent_farms.png", caption: "Opulent Farms, Gurugram 🏊", tag: "Venue" },
-      { src: "./assets/photo_wolfpack.png", caption: "The Wolfpack Squad! 🕺🎉", tag: "Party Vibes" },
-      { src: "./assets/photo_unicorn.png", caption: "The Morning After... 🦄", tag: "Legendary" },
-      { src: "./assets/photo_group.png", caption: "Good Times & Great Friends ✨", tag: "Chill Session" },
-      { src: "./assets/photo_aftermath.png", caption: "Villa Lounge Aftermath 🌅", tag: "The Hangover" }
+      { src: "./assets/photo_unicorn.png", caption: "Unicorn Party Survivor 🦄", tag: "The Hangover" },
+      { src: "./assets/photo_group.jpg", caption: "Floor Circle Party Vibe ✨", tag: "Wild Night" },
+      { src: "./assets/photo_aftermath.jpg", caption: "Living Room Aftermath 🌅", tag: "Morning After" },
+      { src: "./assets/photo_wolfpack.jpg", caption: "The Legendary Wolfpack 🕺🎉", tag: "Party Squad" }
     ];
     this.activePhotoIdx = 0;
     
@@ -477,7 +477,7 @@ class RSVPApp {
             <div class="polaroid-card memory-polaroid" style="transform:rotate(2deg);">
               <div class="polaroid-tape"></div>
               <div class="polaroid-img-box">
-                <img src="./assets/photo_wolfpack.png" alt="Wolfpack Squad" />
+                <img src="./assets/photo_wolfpack.jpg" alt="Wolfpack Squad" />
               </div>
               <div class="polaroid-caption">Wolfpack Squad 🕺</div>
             </div>
@@ -485,7 +485,7 @@ class RSVPApp {
             <div class="polaroid-card memory-polaroid" style="transform:rotate(-2deg);">
               <div class="polaroid-tape"></div>
               <div class="polaroid-img-box">
-                <img src="./assets/photo_group.png" alt="Chill Session" />
+                <img src="./assets/photo_group.jpg" alt="Chill Session" />
               </div>
               <div class="polaroid-caption">Summer Vibes ☀️</div>
             </div>
@@ -493,7 +493,7 @@ class RSVPApp {
             <div class="polaroid-card memory-polaroid" style="transform:rotate(3deg);">
               <div class="polaroid-tape"></div>
               <div class="polaroid-img-box">
-                <img src="./assets/photo_aftermath.png" alt="Living Room Aftermath" />
+                <img src="./assets/photo_aftermath.jpg" alt="Living Room Aftermath" />
               </div>
               <div class="polaroid-caption">The Aftermath 🌅</div>
             </div>
