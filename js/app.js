@@ -1,5 +1,6 @@
 /**
  * Application Engine for Pool Party RSVP Wizard
+ * Features: Audio synthesizer, interactive particle confetti, lightbox photo modal, 3D tilt
  */
 
 class RSVPApp {
@@ -11,6 +12,7 @@ class RSVPApp {
     
     this.initDOM();
     this.bindEvents();
+    this.initLightbox();
     this.renderHeader();
     this.renderHero();
   }
@@ -34,6 +36,7 @@ class RSVPApp {
     this.headerBadge = document.getElementById("header-badge");
     this.btnFriends = document.getElementById("btn-variant-friends");
     this.btnOffice = document.getElementById("btn-variant-office");
+    this.btnMusic = document.getElementById("btn-toggle-music");
     this.heroSection = document.getElementById("hero-section");
     this.wizardSection = document.getElementById("wizard-section");
     this.successSection = document.getElementById("success-section");
@@ -47,6 +50,53 @@ class RSVPApp {
     // Header variant switchers
     this.btnFriends.addEventListener("click", () => this.switchVariant("friends"));
     this.btnOffice.addEventListener("click", () => this.switchVariant("office"));
+
+    // Music equalizer toggle button
+    if (this.btnMusic) {
+      this.btnMusic.addEventListener("click", () => {
+        if (window.partyAudio) {
+          const playing = window.partyAudio.togglePlay();
+          this.btnMusic.classList.toggle("playing", playing);
+        }
+      });
+    }
+  }
+
+  initLightbox() {
+    this.lightboxModal = document.getElementById("lightbox-modal");
+    this.lightboxImg = document.getElementById("lightbox-img");
+    this.lightboxCaption = document.getElementById("lightbox-caption");
+    this.lightboxClose = document.getElementById("lightbox-close");
+    this.lightboxBackdrop = document.getElementById("lightbox-backdrop");
+
+    if (this.lightboxClose) {
+      this.lightboxClose.addEventListener("click", () => this.closeLightbox());
+      this.lightboxBackdrop.addEventListener("click", () => this.closeLightbox());
+    }
+
+    // Delegation for clicking any polaroid to open lightbox
+    document.addEventListener("click", (e) => {
+      const polaroid = e.target.closest(".polaroid-card");
+      if (polaroid && !e.target.closest(".polaroid-controls")) {
+        const img = polaroid.querySelector("img");
+        const cap = polaroid.querySelector(".polaroid-caption");
+        if (img) {
+          this.openLightbox(img.src, cap ? cap.innerText : "");
+        }
+      }
+    });
+  }
+
+  openLightbox(src, caption) {
+    if (!this.lightboxModal) return;
+    this.lightboxImg.src = src;
+    this.lightboxCaption.innerText = caption || "";
+    this.lightboxModal.classList.add("active");
+  }
+
+  closeLightbox() {
+    if (!this.lightboxModal) return;
+    this.lightboxModal.classList.remove("active");
   }
 
   switchVariant(targetVariant) {
@@ -171,6 +221,7 @@ class RSVPApp {
     }, 4000);
 
     document.getElementById("btn-start-rsvp").addEventListener("click", () => {
+      if (window.partyAudio) window.partyAudio.playPop();
       if (this.photoInterval) clearInterval(this.photoInterval);
       this.startWizard();
     });
@@ -317,6 +368,7 @@ class RSVPApp {
     if (q.type === "single" || q.type === "single_with_custom" || q.type === "single_with_count") {
       container.querySelectorAll(".option-card[data-value]").forEach(card => {
         card.addEventListener("click", () => {
+          if (window.partyAudio) window.partyAudio.playPop();
           container.querySelectorAll(".option-card[data-value]").forEach(c => c.classList.remove("selected"));
           card.classList.add("selected");
           const val = card.getAttribute("data-value");
@@ -341,6 +393,7 @@ class RSVPApp {
     if (q.type === "drinks_conditional") {
       container.querySelectorAll(".option-card[data-drink-status]").forEach(card => {
         card.addEventListener("click", () => {
+          if (window.partyAudio) window.partyAudio.playPop();
           container.querySelectorAll(".option-card[data-drink-status]").forEach(c => c.classList.remove("selected"));
           card.classList.add("selected");
           const val = card.getAttribute("data-drink-status");
@@ -353,6 +406,7 @@ class RSVPApp {
 
       container.querySelectorAll(".option-card[data-drink-choice]").forEach(card => {
         card.addEventListener("click", () => {
+          if (window.partyAudio) window.partyAudio.playPop();
           card.classList.toggle("selected");
           const choices = [];
           container.querySelectorAll(".option-card[data-drink-choice].selected").forEach(c => {
@@ -367,6 +421,7 @@ class RSVPApp {
     if (q.type === "multi") {
       container.querySelectorAll(".option-card[data-multi-value]").forEach(card => {
         card.addEventListener("click", () => {
+          if (window.partyAudio) window.partyAudio.playPop();
           card.classList.toggle("selected");
           const choices = [];
           container.querySelectorAll(".option-card[data-multi-value].selected").forEach(c => {
@@ -379,6 +434,7 @@ class RSVPApp {
 
     // Navigation Events
     document.getElementById("btn-wizard-back").addEventListener("click", () => {
+      if (window.partyAudio) window.partyAudio.playPop();
       if (this.currentStep === 0) {
         this.wizardSection.style.display = "none";
         this.heroSection.style.display = "flex";
@@ -391,6 +447,7 @@ class RSVPApp {
 
     document.getElementById("btn-wizard-next").addEventListener("click", () => {
       if (this.validateCurrentStep(q)) {
+        if (window.partyAudio) window.partyAudio.playPop();
         this.currentStep++;
         this.renderStep();
       }
@@ -451,11 +508,15 @@ class RSVPApp {
     this.wizardSection.style.display = "none";
     this.successSection.style.display = "flex";
 
+    // Play Victory Fanfare & Confetti Burst
+    if (window.partyAudio) window.partyAudio.playFanfare();
+    if (window.particleEngine) window.particleEngine.burstConfetti();
+
     this.successSection.innerHTML = `
       <div class="success-card">
         <div class="success-icon">🎉</div>
-        <h2 style="font-family:var(--font-heading); font-size:28px; color:var(--primary-cyan);">RSVP Submitted!</h2>
-        <p style="color:var(--text-muted); font-size:15px; max-width:420px; line-height:1.6;">
+        <h2 style="font-family:var(--font-heading); font-size:32px; color:var(--primary-cyan);">RSVP Submitted!</h2>
+        <p style="color:var(--text-muted); font-size:16px; max-width:440px; line-height:1.65;">
           Thanks for filling this in! If we hit the numbers needed to book Opulent Farms, I'll update everyone on WhatsApp soon.
         </p>
 
