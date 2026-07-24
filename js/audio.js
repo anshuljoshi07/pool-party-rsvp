@@ -1,21 +1,22 @@
 /**
- * MP3 Background Music Engine & Sound FX for Pool Party RSVP
- * Plays 'Right_Round-561480-mobiles24.mp3' automatically on load / first interaction
+ * MP3 Background Music Engine
+ * Ensures 'Right_Round-561480-mobiles24.mp3' plays automatically on load
  */
 
 class PartyAudioEngine {
   constructor() {
     this.audio = new Audio("./assets/Right_Round-561480-mobiles24.mp3");
     this.audio.loop = true;
+    this.audio.autoplay = true;
     this.audio.preload = "auto";
     this.isPlaying = false;
     this.ctx = null;
     
-    this.initAutoplay();
+    this.startMusic();
+    this.bindGlobalAutoplayUnlock();
   }
 
-  initAutoplay() {
-    // Attempt automatic playback
+  startMusic() {
     const playPromise = this.audio.play();
 
     if (playPromise !== undefined) {
@@ -25,25 +26,36 @@ class PartyAudioEngine {
           this.updateUI(true);
         })
         .catch(() => {
-          // Autoplay blocked by browser policy; wait for first user interaction anywhere
           this.isPlaying = false;
           this.updateUI(false);
-
-          const unlockAudio = () => {
-            if (!this.isPlaying) {
-              this.audio.play().then(() => {
-                this.isPlaying = true;
-                this.updateUI(true);
-              }).catch(e => console.log("Audio play error:", e));
-            }
-            document.removeEventListener("click", unlockAudio);
-            document.removeEventListener("touchstart", unlockAudio);
-          };
-
-          document.addEventListener("click", unlockAudio, { once: true });
-          document.addEventListener("touchstart", unlockAudio, { once: true });
         });
     }
+  }
+
+  bindGlobalAutoplayUnlock() {
+    const forcePlay = () => {
+      if (!this.isPlaying || this.audio.paused) {
+        this.audio.play().then(() => {
+          this.isPlaying = true;
+          this.updateUI(true);
+          this.removeListeners(forcePlay);
+        }).catch(() => {});
+      } else {
+        this.removeListeners(forcePlay);
+      }
+    };
+
+    const events = ["click", "touchstart", "mousemove", "mousedown", "keydown", "scroll"];
+    events.forEach(evt => {
+      document.addEventListener(evt, forcePlay, { passive: true });
+    });
+  }
+
+  removeListeners(handler) {
+    const events = ["click", "touchstart", "mousemove", "mousedown", "keydown", "scroll"];
+    events.forEach(evt => {
+      document.removeEventListener(evt, handler);
+    });
   }
 
   togglePlay() {
@@ -113,5 +125,7 @@ class PartyAudioEngine {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  window.partyAudio = new PartyAudioEngine();
+  if (!window.partyAudio) {
+    window.partyAudio = new PartyAudioEngine();
+  }
 });
