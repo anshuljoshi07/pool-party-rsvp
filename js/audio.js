@@ -1,158 +1,117 @@
 /**
- * Audio Engine & Sound Synthesizer for Pool Party RSVP
- * Uses Web Audio API to create a live synthwave summer party beat + sound effects
+ * MP3 Background Music Engine & Sound FX for Pool Party RSVP
+ * Plays 'Right_Round-561480-mobiles24.mp3' automatically on load / first interaction
  */
 
 class PartyAudioEngine {
   constructor() {
-    this.ctx = null;
+    this.audio = new Audio("./assets/Right_Round-561480-mobiles24.mp3");
+    this.audio.loop = true;
+    this.audio.preload = "auto";
     this.isPlaying = false;
-    this.timerId = null;
-    this.beatIndex = 0;
-    this.tempo = 115;
+    this.ctx = null;
+    
+    this.initAutoplay();
   }
 
-  init() {
-    if (!this.ctx) {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      if (AudioCtx) {
-        this.ctx = new AudioCtx();
-      }
-    }
-    if (this.ctx && this.ctx.state === 'suspended') {
-      this.ctx.resume();
+  initAutoplay() {
+    // Attempt automatic playback
+    const playPromise = this.audio.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          this.isPlaying = true;
+          this.updateUI(true);
+        })
+        .catch(() => {
+          // Autoplay blocked by browser policy; wait for first user interaction anywhere
+          this.isPlaying = false;
+          this.updateUI(false);
+
+          const unlockAudio = () => {
+            if (!this.isPlaying) {
+              this.audio.play().then(() => {
+                this.isPlaying = true;
+                this.updateUI(true);
+              }).catch(e => console.log("Audio play error:", e));
+            }
+            document.removeEventListener("click", unlockAudio);
+            document.removeEventListener("touchstart", unlockAudio);
+          };
+
+          document.addEventListener("click", unlockAudio, { once: true });
+          document.addEventListener("touchstart", unlockAudio, { once: true });
+        });
     }
   }
 
   togglePlay() {
-    this.init();
-    if (this.isPlaying) {
-      this.stop();
+    if (this.audio.paused) {
+      this.audio.play();
+      this.isPlaying = true;
     } else {
-      this.start();
+      this.audio.pause();
+      this.isPlaying = false;
     }
+    this.updateUI(this.isPlaying);
     return this.isPlaying;
   }
 
-  start() {
-    if (this.isPlaying) return;
-    this.isPlaying = true;
-    this.beatIndex = 0;
-    const stepTime = (60 / this.tempo) / 4 * 1000;
-
-    this.timerId = setInterval(() => {
-      this.playStep(this.beatIndex);
-      this.beatIndex = (this.beatIndex + 1) % 16;
-    }, stepTime);
-  }
-
-  stop() {
-    this.isPlaying = false;
-    if (this.timerId) {
-      clearInterval(this.timerId);
-      this.timerId = null;
-    }
-  }
-
-  playStep(step) {
-    if (!this.ctx) return;
-
-    const t = this.ctx.currentTime;
-
-    // Kick Drum on steps 0, 4, 8, 12
-    if (step % 4 === 0) {
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.frequency.setValueAtTime(120, t);
-      osc.frequency.exponentialRampToValueAtTime(0.01, t + 0.15);
-      gain.gain.setValueAtTime(0.7, t);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.15);
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start(t);
-      osc.stop(t + 0.15);
-    }
-
-    // Hi-hat on every offbeat (steps 2, 6, 10, 14)
-    if (step % 4 === 2) {
-      const bufferSize = this.ctx.sampleRate * 0.05;
-      const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-      const output = buffer.getChannelData(0);
-      for (let i = 0; i < bufferSize; i++) {
-        output[i] = Math.random() * 2 - 1;
-      }
-
-      const whiteNoise = this.ctx.createBufferSource();
-      whiteNoise.buffer = buffer;
-
-      const filter = this.ctx.createBiquadFilter();
-      filter.type = 'highpass';
-      filter.frequency.value = 7000;
-
-      const gain = this.ctx.createGain();
-      gain.gain.setValueAtTime(0.15, t);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.05);
-
-      whiteNoise.connect(filter);
-      filter.connect(gain);
-      gain.connect(this.ctx.destination);
-      whiteNoise.start(t);
-    }
-
-    // Synth Bass / Melody line
-    const bassScale = [110, 130.81, 146.83, 164.81, 196.00]; // A2, C3, D3, E3, G3
-    if (step % 2 === 0) {
-      const note = bassScale[(step / 2) % bassScale.length];
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(note, t);
-
-      gain.gain.setValueAtTime(0.12, t);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.18);
-
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
-      osc.start(t);
-      osc.stop(t + 0.18);
+  updateUI(playing) {
+    const btn = document.getElementById("btn-toggle-music");
+    if (btn) {
+      btn.classList.toggle("playing", playing);
     }
   }
 
   playPop() {
-    this.init();
-    if (!this.ctx) return;
-    const t = this.ctx.currentTime;
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(400, t);
-    osc.frequency.exponentialRampToValueAtTime(800, t + 0.08);
-    gain.gain.setValueAtTime(0.3, t);
-    gain.gain.exponentialRampToValueAtTime(0.01, t + 0.08);
-    osc.connect(gain);
-    gain.connect(this.ctx.destination);
-    osc.start(t);
-    osc.stop(t + 0.08);
-  }
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!this.ctx && AudioCtx) this.ctx = new AudioCtx();
+      if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+      if (!this.ctx) return;
 
-  playFanfare() {
-    this.init();
-    if (!this.ctx) return;
-    const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
-    notes.forEach((freq, idx) => {
-      const t = this.ctx.currentTime + (idx * 0.1);
+      const t = this.ctx.currentTime;
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
-      osc.type = 'triangle';
-      osc.frequency.setValueAtTime(freq, t);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(450, t);
+      osc.frequency.exponentialRampToValueAtTime(850, t + 0.08);
       gain.gain.setValueAtTime(0.25, t);
-      gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+      gain.gain.exponentialRampToValueAtTime(0.01, t + 0.08);
       osc.connect(gain);
       gain.connect(this.ctx.destination);
       osc.start(t);
-      osc.stop(t + 0.35);
-    });
+      osc.stop(t + 0.08);
+    } catch (e) {}
+  }
+
+  playFanfare() {
+    try {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (!this.ctx && AudioCtx) this.ctx = new AudioCtx();
+      if (this.ctx && this.ctx.state === 'suspended') this.ctx.resume();
+      if (!this.ctx) return;
+
+      const notes = [523.25, 659.25, 783.99, 1046.50];
+      notes.forEach((freq, idx) => {
+        const t = this.ctx.currentTime + (idx * 0.1);
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, t);
+        gain.gain.setValueAtTime(0.25, t);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.35);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.35);
+      });
+    } catch (e) {}
   }
 }
 
-window.partyAudio = new PartyAudioEngine();
+document.addEventListener("DOMContentLoaded", () => {
+  window.partyAudio = new PartyAudioEngine();
+});
