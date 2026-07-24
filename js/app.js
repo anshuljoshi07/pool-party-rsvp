@@ -266,17 +266,8 @@ class RSVPApp {
     this.progressStepText.innerText = `Question ${stepNumber} of ${totalSteps}`;
     this.progressPercent.innerText = `${percent}%`;
 
-    // Render Question HTML with graphic Polaroid UI piece
+    // Render Question HTML
     this.questionCard.innerHTML = `
-      <div class="question-photo-graphic polaroid-card" style="transform: rotate(${stepNumber % 2 === 0 ? 1 : -1}deg);">
-        <div class="polaroid-tape"></div>
-        <div class="polaroid-tag-badge">${photo.tag}</div>
-        <div class="polaroid-img-box">
-          <img src="${photo.src}" alt="${photo.caption}" />
-        </div>
-        <div class="polaroid-caption">${photo.caption}</div>
-      </div>
-
       <div class="question-badge">Question ${stepNumber}</div>
       <h2 class="question-title">${question.title}</h2>
       <p class="question-subtitle">${question.subtitle}</p>
