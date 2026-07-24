@@ -123,11 +123,11 @@ class RSVPApp {
 
   renderHeader() {
     if (this.variant === "office") {
-      this.headerBadge.innerText = "👔 Office Edition";
+      this.headerBadge.innerText = "👔 OFFICE EDITION";
       this.btnOffice.classList.add("active");
       this.btnFriends.classList.remove("active");
     } else {
-      this.headerBadge.innerText = "🎉 Friends Edition";
+      this.headerBadge.innerText = "🎬 WOLFPACK EDITION";
       this.btnFriends.classList.add("active");
       this.btnOffice.classList.remove("active");
     }

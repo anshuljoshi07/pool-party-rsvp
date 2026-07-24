@@ -31,24 +31,24 @@ const CONFIG = {
   // Hero Section content for both variants
   hero: {
     friends: {
-      badge: "🎉 Friends Farewell Edition",
-      title: "You're invited (maybe)",
+      badge: "🎬 THE HANGOVER: WOLFPACK EDITION",
+      title: "THE WOLFPACK FAREWELL",
       paragraphs: [
         "Okay, here's what I'm thinking. Before I'm out of here, I want to throw one proper party. Not the usual living-room hangout. A whole farmhouse for the night, out at Opulent Farms in Gurugram, the one in the photo with the pool. Cricket and football through the day, everyone in the pool, a proper beer session once it cools down, and karaoke to close it out.",
         "Here's the catch though. Pulling this off is a bit of a headache, and it only makes sense if enough of you actually show up. A farmhouse and a pool for six people is just sad. So I'm testing the waters first. If the numbers are there, I'll book it. If not, we'll do the usual chill thing at home like always, no big deal.",
         "Takes two minutes. Fill it in and tell me if you're in."
       ],
-      ctaText: "Let's Test The Waters 🌊"
+      ctaText: "TEST THE WATERS 🌊"
     },
     office: {
-      badge: "👔 Office Farewell Edition",
-      title: "You're invited",
+      badge: "👔 THE HANGOVER: OFFICE EDITION",
+      title: "THE FAREWELL POOL SESSION",
       paragraphs: [
         "Before I move on from here, I'd like to mark the occasion properly rather than the usual after-work drinks. The plan is an afternoon at a farmhouse in Gurugram (Opulent Farms, the one in the photo, pool included). We'd head over around 4, spend a few hours by the pool with some games, snacks and drinks, and wrap up by 7 or 8 so everyone can still make their evening calls.",
         "It's a fair bit to organise, so it only really works if enough people are up for it. Before I lock anything in, I'd like to get a sense of who's genuinely interested. If the turnout's there, I'll go ahead and sort out the rest.",
         "It only takes a couple of minutes. Fill it in and let me know if you'd like to come along."
       ],
-      ctaText: "Count Me In 🏊"
+      ctaText: "COUNT ME IN 🏊"
     }
   },
 

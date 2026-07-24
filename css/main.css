@@ -1,33 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&family=Caveat:wght@700&display=swap');
 
 :root {
-  --bg-dark: #070A12;
-  --bg-card: rgba(15, 23, 42, 0.78);
-  --bg-card-hover: rgba(30, 41, 65, 0.88);
-  --border-card: rgba(255, 255, 255, 0.14);
-  --border-active: #00F5D4;
+  --bg-dark: #0A070D;
+  --bg-card: rgba(18, 12, 26, 0.82);
+  --bg-card-hover: rgba(32, 22, 46, 0.90);
+  --border-card: rgba(255, 215, 0, 0.22);
+  --border-active: #FFD700;
   
+  --primary-gold: #FFD700;
+  --primary-red: #E50914;
   --primary-cyan: #00F5D4;
-  --primary-blue: #00B4D8;
   --accent-pink: #FF007F;
   --accent-amber: #FF9E00;
   --accent-coral: #FF477E;
   
   --text-main: #F8FAFC;
-  --text-muted: #94A3B8;
-  --text-dim: #64748B;
+  --text-muted: #CBD5E1;
+  --text-dim: #94A3B8;
   
-  --font-heading: 'Outfit', sans-serif;
+  --font-poster: 'Bebas Neue', sans-serif;
+  --font-heading: 'Outfit', 'Bebas Neue', sans-serif;
   --font-body: 'Plus Jakarta Sans', sans-serif;
-  --font-handwritten: 'Caveat', cursive;
+  --font-handwritten: 'Permanent Marker', 'Caveat', cursive;
   
   --radius-lg: 26px;
   --radius-md: 18px;
   --radius-sm: 12px;
   
-  --shadow-glow: 0 0 35px rgba(0, 245, 212, 0.25);
-  --shadow-pink: 0 0 35px rgba(255, 0, 127, 0.25);
-  --shadow-card: 0 25px 60px rgba(0, 0, 0, 0.6);
+  --shadow-gold: 0 0 35px rgba(255, 215, 0, 0.3);
+  --shadow-red: 0 0 35px rgba(229, 9, 20, 0.35);
+  --shadow-cyan: 0 0 35px rgba(0, 245, 212, 0.25);
+  --shadow-card: 0 25px 60px rgba(0, 0, 0, 0.75);
 }
 
 * {
@@ -47,7 +50,11 @@ body {
   align-items: center;
   justify-content: flex-start;
   overflow-x: hidden;
-  /* Full Page Background Image Layer */
+  position: relative;
+  background-attachment: fixed;
+}
+
+/* Full Page Background Image Layer */
 .bg-graphic-overlay {
   position: fixed;
   top: 0;
@@ -70,10 +77,10 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(7, 10, 18, 0.55) 0%, rgba(7, 10, 18, 0.82) 60%, rgba(7, 10, 18, 0.95) 100%);
+  background: linear-gradient(180deg, rgba(10, 7, 13, 0.60) 0%, rgba(10, 7, 13, 0.84) 60%, rgba(10, 7, 13, 0.96) 100%);
 }
 
-/* App Header & Mode Selector */
+/* App Header & Hangover Badge */
 .app-header {
   width: 100%;
   max-width: 680px;
@@ -90,27 +97,29 @@ body {
   gap: 10px;
 }
 
+/* Hangover Movie Poster Diamond Badge */
 .brand-badge {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-  color: var(--primary-cyan);
+  font-family: var(--font-poster);
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  color: var(--primary-gold);
   text-transform: uppercase;
-  background: rgba(0, 245, 212, 0.12);
-  padding: 8px 16px;
-  border-radius: 30px;
-  border: 1px solid rgba(0, 245, 212, 0.35);
-  box-shadow: 0 0 15px rgba(0, 245, 212, 0.15);
-  animation: pulseGlow 3s infinite ease-in-out;
+  background: rgba(229, 9, 20, 0.25);
+  padding: 6px 18px;
+  border-radius: 6px;
+  border: 1.5px solid var(--primary-gold);
+  box-shadow: var(--shadow-gold);
+  animation: pulseGold 3s infinite ease-in-out;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
 }
 
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 15px rgba(0, 245, 212, 0.15); }
-  50% { box-shadow: 0 0 25px rgba(0, 245, 212, 0.35); }
+@keyframes pulseGold {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.25); }
+  50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.5); }
 }
 
 /* Music Equalizer Button */
@@ -118,9 +127,9 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 0, 127, 0.15);
-  border: 1px solid rgba(255, 0, 127, 0.4);
-  color: #FF77B4;
+  background: rgba(255, 215, 0, 0.15);
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  color: var(--primary-gold);
   padding: 7px 12px;
   border-radius: 30px;
   cursor: pointer;
@@ -129,15 +138,15 @@ body {
 }
 
 .music-toggle-btn:hover {
-  background: rgba(255, 0, 127, 0.3);
+  background: rgba(255, 215, 0, 0.3);
   transform: scale(1.05);
 }
 
 .music-toggle-btn.playing {
-  background: rgba(0, 245, 212, 0.2);
-  border-color: var(--primary-cyan);
-  color: var(--primary-cyan);
-  box-shadow: var(--shadow-glow);
+  background: rgba(229, 9, 20, 0.3);
+  border-color: var(--primary-red);
+  color: var(--primary-gold);
+  box-shadow: var(--shadow-red);
 }
 
 .music-icon {
@@ -188,9 +197,9 @@ body {
   background: transparent;
   border: none;
   color: var(--text-muted);
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 12px;
+  font-family: var(--font-poster);
+  letter-spacing: 1px;
+  font-size: 15px;
   padding: 6px 12px;
   border-radius: 20px;
   cursor: pointer;
@@ -198,7 +207,7 @@ body {
 }
 
 .variant-btn.active {
-  background: var(--text-main);
+  background: var(--primary-gold);
   color: var(--bg-dark);
 }
 
@@ -231,6 +240,21 @@ body {
   animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Hangover Movie Title Typography */
+.hero-title {
+  font-family: var(--font-poster);
+  font-size: 46px;
+  letter-spacing: 2px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  line-height: 1.1;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 215, 0, 0.3);
+  background: linear-gradient(180deg, #FFFFFF 40%, var(--primary-gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /* Polaroid Container */
 .polaroid-wrapper {
   width: 100%;
@@ -245,7 +269,7 @@ body {
   background: #F8FAFC;
   padding: 12px 12px 24px 12px;
   border-radius: 6px;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
   transform: rotate(-2deg);
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
   position: relative;
@@ -256,7 +280,7 @@ body {
 
 .polaroid-card:hover {
   transform: rotate(0deg) scale(1.03) translateY(-4px);
-  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.8);
 }
 
 .polaroid-tape {
@@ -266,11 +290,11 @@ body {
   transform: translateX(-50%);
   width: 120px;
   height: 30px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(4px);
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-  border-left: 2px dashed rgba(0,0,0,0.12);
-  border-right: 2px dashed rgba(0,0,0,0.12);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  border-left: 2px dashed rgba(0,0,0,0.15);
+  border-right: 2px dashed rgba(0,0,0,0.15);
   z-index: 10;
 }
 
@@ -278,18 +302,17 @@ body {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: rgba(7, 10, 18, 0.88);
-  color: var(--primary-cyan);
-  font-family: var(--font-heading);
-  font-size: 11px;
-  font-weight: 800;
-  padding: 5px 12px;
-  border-radius: 20px;
-  border: 1px solid rgba(0, 245, 212, 0.4);
+  background: rgba(10, 7, 13, 0.92);
+  color: var(--primary-gold);
+  font-family: var(--font-poster);
+  font-size: 15px;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--primary-gold);
   backdrop-filter: blur(6px);
   z-index: 5;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
 }
 
 .polaroid-img-box {
@@ -353,7 +376,7 @@ body {
 
 .polaroid-arrow:hover {
   background: var(--bg-dark);
-  color: var(--primary-cyan);
+  color: var(--primary-gold);
 }
 
 .polaroid-dots {
@@ -372,7 +395,7 @@ body {
 }
 
 .polaroid-dots .dot.active {
-  background: #0F172A;
+  background: var(--primary-red);
   width: 20px;
   border-radius: 10px;
 }
@@ -383,23 +406,23 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: linear-gradient(135deg, rgba(0, 245, 212, 0.15), rgba(0, 180, 216, 0.15));
-  border: 1px solid rgba(0, 245, 212, 0.4);
-  color: var(--primary-cyan);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(229, 9, 20, 0.15));
+  border: 1.5px solid rgba(255, 215, 0, 0.5);
+  color: var(--primary-gold);
   text-decoration: none;
   font-family: var(--font-body);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 14px;
   padding: 14px 20px;
   border-radius: 16px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 18px rgba(0, 245, 212, 0.12);
+  box-shadow: 0 4px 18px rgba(255, 215, 0, 0.15);
 }
 
 .maps-badge:hover {
-  background: linear-gradient(135deg, rgba(0, 245, 212, 0.28), rgba(0, 180, 216, 0.28));
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(229, 9, 20, 0.3));
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 245, 212, 0.3);
+  box-shadow: var(--shadow-gold);
 }
 
 .maps-pin {
@@ -412,18 +435,6 @@ body {
   50% { transform: translateY(-4px); }
 }
 
-/* Hero Content Typography */
-.hero-title {
-  font-family: var(--font-heading);
-  font-size: 34px;
-  font-weight: 800;
-  color: var(--text-main);
-  line-height: 1.2;
-  background: linear-gradient(135deg, #FFFFFF 30%, var(--primary-cyan) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 .hero-body {
   display: flex;
   flex-direction: column;
@@ -433,29 +444,34 @@ body {
   line-height: 1.65;
 }
 
+/* Main CTA Button */
 .btn-primary {
   width: 100%;
-  background: linear-gradient(135deg, var(--primary-cyan), var(--primary-blue));
-  color: var(--bg-dark);
-  font-family: var(--font-heading);
-  font-weight: 800;
-  font-size: 18px;
+  background: linear-gradient(135deg, var(--primary-red), #B30006);
+  color: #FFFFFF;
+  font-family: var(--font-poster);
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   padding: 18px 24px;
-  border: none;
+  border: 1.5px solid var(--primary-gold);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 30px rgba(0, 245, 212, 0.35);
+  box-shadow: var(--shadow-red);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   margin-top: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .btn-primary:hover {
   transform: translateY(-3px) scale(1.01);
-  box-shadow: 0 16px 35px rgba(0, 245, 212, 0.5);
+  box-shadow: 0 16px 35px rgba(229, 9, 20, 0.6);
+  background: linear-gradient(135deg, #FF1A24, var(--primary-red));
 }
 
 .btn-primary:active {
@@ -481,30 +497,30 @@ body {
 .progress-info {
   display: flex;
   justify-content: space-between;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--primary-cyan);
+  font-family: var(--font-poster);
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: var(--primary-gold);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
 .progress-bar-bg {
   width: 100%;
-  height: 10px;
+  height: 12px;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.2);
 }
 
 .progress-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary-cyan), var(--accent-pink), var(--accent-amber));
+  background: linear-gradient(90deg, var(--primary-red), var(--primary-gold), var(--primary-cyan));
   width: 0%;
   transition: width 0.4s ease;
   border-radius: 10px;
-  box-shadow: 0 0 12px var(--primary-cyan);
+  box-shadow: 0 0 14px var(--primary-gold);
 }
 
 /* Question Card */
@@ -520,41 +536,26 @@ body {
   display: flex;
   flex-direction: column;
   gap: 22px;
-/* Question Photo Graphic UI Piece */
-.question-photo-graphic {
-  width: 100%;
-  margin-bottom: 4px;
-  padding: 8px 8px 14px 8px;
-  border-radius: 4px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.question-photo-graphic .polaroid-img-box {
-  aspect-ratio: 16 / 9;
-  border-radius: 2px;
-}
-
-.question-photo-graphic .polaroid-caption {
-  font-size: 20px;
-  margin-top: 6px;
+  animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .question-badge {
-  font-family: var(--font-heading);
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--accent-amber);
+  font-family: var(--font-poster);
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  color: var(--primary-gold);
   text-transform: uppercase;
-  letter-spacing: 1.2px;
 }
 
 .question-title {
-  font-family: var(--font-heading);
-  font-size: 26px;
-  font-weight: 800;
+  font-family: var(--font-poster);
+  font-size: 34px;
+  letter-spacing: 1.5px;
+  font-weight: 400;
+  text-transform: uppercase;
   color: var(--text-main);
-  line-height: 1.35;
+  line-height: 1.25;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
 .question-subtitle {
@@ -588,15 +589,15 @@ body {
 
 .option-card:hover {
   background: var(--bg-card-hover);
-  border-color: rgba(0, 245, 212, 0.5);
+  border-color: rgba(255, 215, 0, 0.6);
   transform: translateX(4px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .option-card.selected {
-  background: linear-gradient(135deg, rgba(0, 245, 212, 0.14), rgba(0, 180, 216, 0.14));
-  border-color: var(--primary-cyan);
-  box-shadow: var(--shadow-glow);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.16), rgba(229, 9, 20, 0.16));
+  border-color: var(--primary-gold);
+  box-shadow: var(--shadow-gold);
   transform: translateX(6px);
 }
 
@@ -635,8 +636,8 @@ body {
 
 .option-card.selected .radio-indicator,
 .option-card.selected .checkbox-indicator {
-  border-color: var(--primary-cyan);
-  background: var(--primary-cyan);
+  border-color: var(--primary-gold);
+  background: var(--primary-gold);
 }
 
 .option-card.selected .radio-indicator::after {
@@ -657,7 +658,7 @@ body {
 /* Conditional Inputs */
 .conditional-box {
   background: rgba(0, 0, 0, 0.35);
-  border: 1px dashed rgba(0, 245, 212, 0.3);
+  border: 1px dashed rgba(255, 215, 0, 0.4);
   border-radius: var(--radius-md);
   padding: 20px;
   margin-top: 10px;
@@ -681,9 +682,9 @@ body {
 }
 
 .input-field:focus {
-  border-color: var(--primary-cyan);
-  background: rgba(0, 245, 212, 0.06);
-  box-shadow: 0 0 20px rgba(0, 245, 212, 0.25);
+  border-color: var(--primary-gold);
+  background: rgba(255, 215, 0, 0.06);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
 }
 
 textarea.input-field {
@@ -701,9 +702,9 @@ textarea.input-field {
 .btn-secondary {
   background: rgba(255, 255, 255, 0.08);
   color: var(--text-main);
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 16px;
+  font-family: var(--font-poster);
+  font-size: 20px;
+  letter-spacing: 1px;
   padding: 18px 22px;
   border: 1px solid var(--border-card);
   border-radius: var(--radius-md);
@@ -728,10 +729,10 @@ textarea.input-field {
 
 .memories-title {
   font-family: var(--font-handwritten);
-  font-size: 32px;
-  color: var(--accent-amber);
+  font-size: 36px;
+  color: var(--primary-gold);
   transform: rotate(-1deg);
-  text-shadow: 0 0 15px rgba(255, 158, 0, 0.4);
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
 }
 
 .memories-grid {
@@ -751,7 +752,7 @@ textarea.input-field {
 .memory-polaroid:hover {
   transform: rotate(0deg) scale(1.06) !important;
   z-index: 10;
-  box-shadow: var(--shadow-pink);
+  box-shadow: var(--shadow-gold);
 }
 
 .memory-polaroid .polaroid-caption {
@@ -787,7 +788,7 @@ textarea.input-field {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(7, 10, 18, 0.88);
+  background: rgba(10, 7, 13, 0.90);
   backdrop-filter: blur(16px);
 }
 
@@ -802,7 +803,7 @@ textarea.input-field {
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
   transform: scale(0.85);
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -830,7 +831,7 @@ textarea.input-field {
   position: absolute;
   top: -18px;
   right: -18px;
-  background: var(--accent-pink);
+  background: var(--primary-red);
   color: #FFF;
   border: none;
   width: 38px;
@@ -839,7 +840,7 @@ textarea.input-field {
   font-size: 18px;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 0, 127, 0.5);
+  box-shadow: var(--shadow-red);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -854,7 +855,7 @@ textarea.input-field {
 .success-card {
   width: 100%;
   background: var(--bg-card);
-  border: 1px solid var(--primary-cyan);
+  border: 1.5px solid var(--primary-gold);
   border-radius: var(--radius-lg);
   padding: 44px 26px;
   text-align: center;
@@ -862,7 +863,7 @@ textarea.input-field {
   flex-direction: column;
   align-items: center;
   gap: 18px;
-  box-shadow: var(--shadow-glow);
+  box-shadow: var(--shadow-gold);
   animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
