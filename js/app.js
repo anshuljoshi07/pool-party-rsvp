@@ -10,11 +10,26 @@ class RSVPApp {
     this.currentStep = -1; // -1 = Hero Screen, 0..N-1 = Questions, N = Success
     this.answers = {};
     
+    this.photosList = [
+      { src: "./assets/opulent_farms.png", caption: "Opulent Farms, Gurugram 🏊", tag: "Venue" },
+      { src: "./assets/photo_wolfpack.jpg", caption: "The Legendary Wolfpack 🕺🎉", tag: "Party Squad" },
+      { src: "./assets/photo_unicorn.png", caption: "Unicorn Party Survivor 🦄", tag: "The Hangover" },
+      { src: "./assets/photo_group.jpg", caption: "Floor Circle Party Vibe ✨", tag: "Wild Night" },
+      { src: "./assets/photo_aftermath.jpg", caption: "Living Room Aftermath 🌅", tag: "Morning After" }
+    ];
+
     this.initDOM();
     this.bindEvents();
     this.initLightbox();
     this.renderHeader();
     this.renderHero();
+  }
+
+  updateBgGraphic(src) {
+    const bg = document.getElementById("bg-graphic-overlay");
+    if (bg && src) {
+      bg.style.backgroundImage = `url('${src}')`;
+    }
   }
 
   detectVariant() {
@@ -120,15 +135,10 @@ class RSVPApp {
 
   renderHero() {
     const heroData = CONFIG.hero[this.variant];
-    
-    this.heroPhotos = [
-      { src: "./assets/opulent_farms.png", caption: "Opulent Farms, Gurugram 🏊", tag: "Venue" },
-      { src: "./assets/photo_unicorn.png", caption: "Unicorn Party Survivor 🦄", tag: "The Hangover" },
-      { src: "./assets/photo_group.jpg", caption: "Floor Circle Party Vibe ✨", tag: "Wild Night" },
-      { src: "./assets/photo_aftermath.jpg", caption: "Living Room Aftermath 🌅", tag: "Morning After" },
-      { src: "./assets/photo_wolfpack.jpg", caption: "The Legendary Wolfpack 🕺🎉", tag: "Party Squad" }
-    ];
+    this.heroPhotos = this.photosList;
     this.activePhotoIdx = 0;
+
+    this.updateBgGraphic(this.heroPhotos[0].src);
     
     this.heroSection.innerHTML = `
       <div class="hero-card">
@@ -181,6 +191,8 @@ class RSVPApp {
     const updatePhoto = (idx) => {
       this.activePhotoIdx = (idx + this.heroPhotos.length) % this.heroPhotos.length;
       const photo = this.heroPhotos[this.activePhotoIdx];
+
+      this.updateBgGraphic(photo.src);
 
       polaroidCard.classList.add("photo-swap");
       setTimeout(() => {
@@ -245,13 +257,26 @@ class RSVPApp {
     const stepNumber = this.currentStep + 1;
     const percent = Math.round((stepNumber / totalSteps) * 100);
 
+    // Active looping photo for this question
+    const photo = this.photosList[this.currentStep % this.photosList.length];
+    this.updateBgGraphic(photo.src);
+
     // Update progress bar
     this.progressFill.style.width = `${percent}%`;
     this.progressStepText.innerText = `Question ${stepNumber} of ${totalSteps}`;
     this.progressPercent.innerText = `${percent}%`;
 
-    // Render Question HTML
+    // Render Question HTML with graphic Polaroid UI piece
     this.questionCard.innerHTML = `
+      <div class="question-photo-graphic polaroid-card" style="transform: rotate(${stepNumber % 2 === 0 ? 1 : -1}deg);">
+        <div class="polaroid-tape"></div>
+        <div class="polaroid-tag-badge">${photo.tag}</div>
+        <div class="polaroid-img-box">
+          <img src="${photo.src}" alt="${photo.caption}" />
+        </div>
+        <div class="polaroid-caption">${photo.caption}</div>
+      </div>
+
       <div class="question-badge">Question ${stepNumber}</div>
       <h2 class="question-title">${question.title}</h2>
       <p class="question-subtitle">${question.subtitle}</p>

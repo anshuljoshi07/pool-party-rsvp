@@ -48,11 +48,22 @@ body {
   justify-content: flex-start;
   overflow-x: hidden;
   position: relative;
-  background-image: 
-    radial-gradient(circle at 10% 15%, rgba(0, 245, 212, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.10) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, rgba(0, 180, 216, 0.08) 0%, transparent 60%);
-  background-attachment: fixed;
+/* Full Page Background Graphic UI Overlay Piece */
+.bg-graphic-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(45px) brightness(0.28) saturate(1.5);
+  opacity: 0.65;
+  transition: background-image 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+  z-index: 1;
+  pointer-events: none;
+  transform: scale(1.08); /* Avoid edge blur clipping */
 }
 
 /* App Header & Mode Selector */
@@ -502,7 +513,24 @@ body {
   display: flex;
   flex-direction: column;
   gap: 22px;
-  animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+/* Question Photo Graphic UI Piece */
+.question-photo-graphic {
+  width: 100%;
+  margin-bottom: 4px;
+  padding: 8px 8px 14px 8px;
+  border-radius: 4px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.question-photo-graphic .polaroid-img-box {
+  aspect-ratio: 16 / 9;
+  border-radius: 2px;
+}
+
+.question-photo-graphic .polaroid-caption {
+  font-size: 20px;
+  margin-top: 6px;
 }
 
 .question-badge {
