@@ -1,18 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Permanent+Marker&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&family=Caveat:wght@700&display=swap');
 
 :root {
-  --bg-dark: #0A070D;
-  --bg-card: rgba(18, 12, 26, 0.82);
-  --bg-card-hover: rgba(32, 22, 46, 0.90);
-  --border-card: rgba(255, 215, 0, 0.22);
-  --border-active: #FFD700;
+  --bg-dark: #080612;
+  --bg-card: rgba(20, 16, 38, 0.84);
+  --bg-card-hover: rgba(36, 28, 64, 0.90);
+  --border-card: rgba(0, 245, 212, 0.22);
+  --border-active: #00F5D4;
   
-  --primary-gold: #FFD700;
-  --primary-red: #E50914;
   --primary-cyan: #00F5D4;
-  --accent-pink: #FF007F;
-  --accent-amber: #FF9E00;
-  --accent-coral: #FF477E;
+  --primary-purple: #9D4EDD;
+  --primary-pink: #FF007F;
+  --accent-amber: #FFB703;
+  --accent-coral: #FF3366;
   
   --text-main: #F8FAFC;
   --text-muted: #CBD5E1;
@@ -27,9 +26,9 @@
   --radius-md: 18px;
   --radius-sm: 12px;
   
-  --shadow-gold: 0 0 35px rgba(255, 215, 0, 0.3);
-  --shadow-red: 0 0 35px rgba(229, 9, 20, 0.35);
-  --shadow-cyan: 0 0 35px rgba(0, 245, 212, 0.25);
+  --shadow-cyan: 0 0 35px rgba(0, 245, 212, 0.35);
+  --shadow-pink: 0 0 35px rgba(255, 0, 127, 0.35);
+  --shadow-purple: 0 0 35px rgba(157, 78, 221, 0.3);
   --shadow-card: 0 25px 60px rgba(0, 0, 0, 0.75);
 }
 
@@ -77,7 +76,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(180deg, rgba(10, 7, 13, 0.60) 0%, rgba(10, 7, 13, 0.84) 60%, rgba(10, 7, 13, 0.96) 100%);
+  background: linear-gradient(180deg, rgba(8, 6, 18, 0.60) 0%, rgba(8, 6, 18, 0.84) 60%, rgba(8, 6, 18, 0.96) 100%);
 }
 
 /* App Header & Hangover Badge */
@@ -97,29 +96,28 @@ body {
   gap: 10px;
 }
 
-/* Hangover Movie Poster Diamond Badge */
+/* Electric Sunset Badge */
 .brand-badge {
   display: flex;
   align-items: center;
   gap: 8px;
   font-family: var(--font-poster);
   font-weight: 400;
-  font-size: 18px;
+  font-size: 17px;
   letter-spacing: 1.5px;
-  color: var(--primary-gold);
+  color: var(--primary-cyan);
   text-transform: uppercase;
-  background: rgba(229, 9, 20, 0.25);
-  padding: 6px 18px;
-  border-radius: 6px;
-  border: 1.5px solid var(--primary-gold);
-  box-shadow: var(--shadow-gold);
-  animation: pulseGold 3s infinite ease-in-out;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.15), rgba(255, 0, 127, 0.15));
+  padding: 6px 16px;
+  border-radius: 30px;
+  border: 1.5px solid var(--primary-cyan);
+  box-shadow: var(--shadow-cyan);
+  animation: pulseCyan 3s infinite ease-in-out;
 }
 
-@keyframes pulseGold {
-  0%, 100% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.25); }
-  50% { box-shadow: 0 0 30px rgba(255, 215, 0, 0.5); }
+@keyframes pulseCyan {
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 245, 212, 0.25); }
+  50% { box-shadow: 0 0 30px rgba(0, 245, 212, 0.5); }
 }
 
 /* Music Equalizer Button */
@@ -127,9 +125,9 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 215, 0, 0.15);
-  border: 1px solid rgba(255, 215, 0, 0.4);
-  color: var(--primary-gold);
+  background: rgba(0, 245, 212, 0.15);
+  border: 1px solid rgba(0, 245, 212, 0.4);
+  color: var(--primary-cyan);
   padding: 7px 12px;
   border-radius: 30px;
   cursor: pointer;
@@ -138,15 +136,15 @@ body {
 }
 
 .music-toggle-btn:hover {
-  background: rgba(255, 215, 0, 0.3);
+  background: rgba(0, 245, 212, 0.3);
   transform: scale(1.05);
 }
 
 .music-toggle-btn.playing {
-  background: rgba(229, 9, 20, 0.3);
-  border-color: var(--primary-red);
-  color: var(--primary-gold);
-  box-shadow: var(--shadow-red);
+  background: rgba(255, 0, 127, 0.25);
+  border-color: var(--primary-pink);
+  color: var(--primary-pink);
+  box-shadow: var(--shadow-pink);
 }
 
 .music-icon {
@@ -207,7 +205,7 @@ body {
 }
 
 .variant-btn.active {
-  background: var(--primary-gold);
+  background: var(--primary-cyan);
   color: var(--bg-dark);
 }
 
@@ -249,8 +247,8 @@ body {
   text-transform: uppercase;
   color: #FFFFFF;
   line-height: 1.1;
-  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 0 20px rgba(255, 215, 0, 0.3);
-  background: linear-gradient(180deg, #FFFFFF 40%, var(--primary-gold) 100%);
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 245, 212, 0.3);
+  background: linear-gradient(180deg, #FFFFFF 35%, var(--primary-cyan) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -302,14 +300,14 @@ body {
   position: absolute;
   top: 20px;
   right: 20px;
-  background: rgba(10, 7, 13, 0.92);
-  color: var(--primary-gold);
+  background: rgba(8, 6, 18, 0.92);
+  color: var(--primary-cyan);
   font-family: var(--font-poster);
   font-size: 15px;
   letter-spacing: 1px;
   padding: 4px 12px;
   border-radius: 4px;
-  border: 1px solid var(--primary-gold);
+  border: 1px solid var(--primary-cyan);
   backdrop-filter: blur(6px);
   z-index: 5;
   text-transform: uppercase;
@@ -376,7 +374,7 @@ body {
 
 .polaroid-arrow:hover {
   background: var(--bg-dark);
-  color: var(--primary-gold);
+  color: var(--primary-cyan);
 }
 
 .polaroid-dots {
@@ -395,7 +393,7 @@ body {
 }
 
 .polaroid-dots .dot.active {
-  background: var(--primary-red);
+  background: var(--primary-pink);
   width: 20px;
   border-radius: 10px;
 }
@@ -406,9 +404,9 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(229, 9, 20, 0.15));
-  border: 1.5px solid rgba(255, 215, 0, 0.5);
-  color: var(--primary-gold);
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.15), rgba(157, 78, 221, 0.15));
+  border: 1.5px solid rgba(0, 245, 212, 0.5);
+  color: var(--primary-cyan);
   text-decoration: none;
   font-family: var(--font-body);
   font-weight: 700;
@@ -416,13 +414,13 @@ body {
   padding: 14px 20px;
   border-radius: 16px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 18px rgba(255, 215, 0, 0.15);
+  box-shadow: 0 4px 18px rgba(0, 245, 212, 0.15);
 }
 
 .maps-badge:hover {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(229, 9, 20, 0.3));
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.28), rgba(157, 78, 221, 0.28));
   transform: translateY(-2px);
-  box-shadow: var(--shadow-gold);
+  box-shadow: var(--shadow-cyan);
 }
 
 .maps-pin {
@@ -447,31 +445,30 @@ body {
 /* Main CTA Button */
 .btn-primary {
   width: 100%;
-  background: linear-gradient(135deg, var(--primary-red), #B30006);
-  color: #FFFFFF;
+  background: linear-gradient(135deg, var(--primary-cyan), var(--primary-pink));
+  color: var(--bg-dark);
   font-family: var(--font-poster);
   font-weight: 400;
   font-size: 24px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   padding: 18px 24px;
-  border: 1.5px solid var(--primary-gold);
+  border: none;
   border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: var(--shadow-red);
+  box-shadow: var(--shadow-cyan);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   margin-top: 10px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .btn-primary:hover {
   transform: translateY(-3px) scale(1.01);
-  box-shadow: 0 16px 35px rgba(229, 9, 20, 0.6);
-  background: linear-gradient(135deg, #FF1A24, var(--primary-red));
+  box-shadow: 0 16px 35px rgba(0, 245, 212, 0.5);
+  background: linear-gradient(135deg, #1AF6D8, var(--primary-cyan));
 }
 
 .btn-primary:active {
@@ -500,7 +497,7 @@ body {
   font-family: var(--font-poster);
   font-size: 16px;
   letter-spacing: 1px;
-  color: var(--primary-gold);
+  color: var(--primary-cyan);
   text-transform: uppercase;
 }
 
@@ -511,16 +508,16 @@ body {
   border-radius: 10px;
   overflow: hidden;
   position: relative;
-  border: 1px solid rgba(255, 215, 0, 0.2);
+  border: 1px solid rgba(0, 245, 212, 0.25);
 }
 
 .progress-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--primary-red), var(--primary-gold), var(--primary-cyan));
+  background: linear-gradient(90deg, var(--primary-cyan), var(--primary-pink), var(--accent-amber));
   width: 0%;
   transition: width 0.4s ease;
   border-radius: 10px;
-  box-shadow: 0 0 14px var(--primary-gold);
+  box-shadow: 0 0 14px var(--primary-cyan);
 }
 
 /* Question Card */
@@ -543,7 +540,7 @@ body {
   font-family: var(--font-poster);
   font-size: 18px;
   letter-spacing: 1.5px;
-  color: var(--primary-gold);
+  color: var(--accent-amber);
   text-transform: uppercase;
 }
 
@@ -589,15 +586,15 @@ body {
 
 .option-card:hover {
   background: var(--bg-card-hover);
-  border-color: rgba(255, 215, 0, 0.6);
+  border-color: rgba(0, 245, 212, 0.6);
   transform: translateX(4px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .option-card.selected {
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.16), rgba(229, 9, 20, 0.16));
-  border-color: var(--primary-gold);
-  box-shadow: var(--shadow-gold);
+  background: linear-gradient(135deg, rgba(0, 245, 212, 0.18), rgba(157, 78, 221, 0.18));
+  border-color: var(--primary-cyan);
+  box-shadow: var(--shadow-cyan);
   transform: translateX(6px);
 }
 
@@ -636,8 +633,8 @@ body {
 
 .option-card.selected .radio-indicator,
 .option-card.selected .checkbox-indicator {
-  border-color: var(--primary-gold);
-  background: var(--primary-gold);
+  border-color: var(--primary-cyan);
+  background: var(--primary-cyan);
 }
 
 .option-card.selected .radio-indicator::after {
@@ -658,7 +655,7 @@ body {
 /* Conditional Inputs */
 .conditional-box {
   background: rgba(0, 0, 0, 0.35);
-  border: 1px dashed rgba(255, 215, 0, 0.4);
+  border: 1px dashed rgba(0, 245, 212, 0.4);
   border-radius: var(--radius-md);
   padding: 20px;
   margin-top: 10px;
@@ -682,9 +679,9 @@ body {
 }
 
 .input-field:focus {
-  border-color: var(--primary-gold);
-  background: rgba(255, 215, 0, 0.06);
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.25);
+  border-color: var(--primary-cyan);
+  background: rgba(0, 245, 212, 0.06);
+  box-shadow: 0 0 20px rgba(0, 245, 212, 0.25);
 }
 
 textarea.input-field {
@@ -730,9 +727,9 @@ textarea.input-field {
 .memories-title {
   font-family: var(--font-handwritten);
   font-size: 36px;
-  color: var(--primary-gold);
+  color: var(--accent-amber);
   transform: rotate(-1deg);
-  text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+  text-shadow: 0 0 15px rgba(255, 183, 3, 0.5);
 }
 
 .memories-grid {
@@ -752,7 +749,7 @@ textarea.input-field {
 .memory-polaroid:hover {
   transform: rotate(0deg) scale(1.06) !important;
   z-index: 10;
-  box-shadow: var(--shadow-gold);
+  box-shadow: var(--shadow-cyan);
 }
 
 .memory-polaroid .polaroid-caption {
@@ -788,7 +785,7 @@ textarea.input-field {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(10, 7, 13, 0.90);
+  background: rgba(8, 6, 18, 0.92);
   backdrop-filter: blur(16px);
 }
 
@@ -831,7 +828,7 @@ textarea.input-field {
   position: absolute;
   top: -18px;
   right: -18px;
-  background: var(--primary-red);
+  background: var(--primary-pink);
   color: #FFF;
   border: none;
   width: 38px;
@@ -840,7 +837,7 @@ textarea.input-field {
   font-size: 18px;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: var(--shadow-red);
+  box-shadow: var(--shadow-pink);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -855,7 +852,7 @@ textarea.input-field {
 .success-card {
   width: 100%;
   background: var(--bg-card);
-  border: 1.5px solid var(--primary-gold);
+  border: 1.5px solid var(--primary-cyan);
   border-radius: var(--radius-lg);
   padding: 44px 26px;
   text-align: center;
@@ -863,7 +860,7 @@ textarea.input-field {
   flex-direction: column;
   align-items: center;
   gap: 18px;
-  box-shadow: var(--shadow-gold);
+  box-shadow: var(--shadow-cyan);
   animation: scaleUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
